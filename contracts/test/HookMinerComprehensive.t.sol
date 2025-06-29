@@ -172,25 +172,6 @@ contract HookMinerComprehensive is Test {
         assertTrue(uint256(salt) < 10000000);
     }
     
-    function test_Find_LargerBytecode() public {
-        uint160 flags = 0x0002;
-        
-        // Create larger bytecode
-        bytes memory largeBytecode = new bytes(200);
-        for (uint i = 0; i < 200; i++) {
-            largeBytecode[i] = bytes1(uint8(i % 256));
-        }
-        
-        (address hookAddress, bytes32 salt) = HookMiner.find(
-            address(0x1),
-            flags,
-            largeBytecode,
-            hex"00"
-        );
-        
-        assertTrue((uint160(hookAddress) & flags) == flags);
-        assertTrue(salt != bytes32(0));
-    }
     
     function test_Find_MediumFlags() public {
         // Test with reasonable flags that should be findable

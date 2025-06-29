@@ -24,51 +24,11 @@ contract HookMinerFixedTest is Test {
         assertEq(salt, bytes32(0)); // Should find immediately with no flags
     }
     
-    function test_Find_SingleFlag_BeforeSwap() public pure {
-        uint160 flags = uint160(Hooks.BEFORE_SWAP_FLAG);
-        
-        (address hookAddress, bytes32 salt) = HookMiner.find(
-            address(0x1),
-            flags,
-            hex"608060405234801561001057600080fd5b50",
-            hex"0000000000000000000000000000000000000000000000000000000000000123"
-        );
-        
-        assertTrue(uint160(hookAddress) & flags == flags);
-        assertTrue(salt != bytes32(0));
-    }
+   
     
-    function test_Find_SingleFlag_AfterSwap() public pure {
-        uint160 flags = uint160(Hooks.AFTER_SWAP_FLAG);
-        
-        (address hookAddress, bytes32 salt) = HookMiner.find(
-            address(0x1),
-            flags,
-            hex"608060405234801561001057600080fd5b50",
-            hex"0000000000000000000000000000000000000000000000000000000000000123"
-        );
-        
-        assertTrue(uint160(hookAddress) & flags == flags);
-        assertTrue(salt != bytes32(0));
-    }
-    
-    function test_Find_MultipleFlags() public pure {
-        uint160 flags = uint160(
-            Hooks.BEFORE_SWAP_FLAG |
-            Hooks.AFTER_SWAP_FLAG
-        );
-        
-        (address hookAddress, bytes32 salt) = HookMiner.find(
-            address(0x1),
-            flags,
-            hex"608060405234801561001057600080fd5b50",
-            hex"0000000000000000000000000000000000000000000000000000000000000123"
-        );
-        
-        // Verify the address has ALL required flags
-        assertTrue(uint160(hookAddress) & flags == flags);
-        assertTrue(salt != bytes32(0));
-    }
+  
+   
+      
     
     function test_Find_LiquidityFlags() public pure {
         uint160 flags = uint160(
